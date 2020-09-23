@@ -23,9 +23,11 @@ public class Application {
             strategy = "org.hibernate.id.UUIDGenerator"
     )
     @Column(name="APPLICATION_ID", updatable = false, nullable = false)
+    @Setter(AccessLevel.NONE)
     private String id;
 
     @Column(name="DT_CREATED")
+    @Setter(AccessLevel.NONE)
     @CreationTimestamp
     private Date created;
 

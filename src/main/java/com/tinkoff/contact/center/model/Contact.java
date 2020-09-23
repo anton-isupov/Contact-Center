@@ -22,6 +22,7 @@ public class Contact {
             strategy = "org.hibernate.id.UUIDGenerator"
     )
     @Column(name="CONTACT_ID")
+    @Setter(AccessLevel.NONE)
     private String id;
 
     @OneToMany(mappedBy = "contact", cascade = CascadeType.ALL, orphanRemoval = true)
