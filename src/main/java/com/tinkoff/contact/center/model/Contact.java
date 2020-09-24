@@ -1,6 +1,8 @@
 package com.tinkoff.contact.center.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -13,6 +15,7 @@ import java.util.List;
 @Table(name="CONTACT")
 @NoArgsConstructor
 @Data
+@ApiModel("Contact Model")
 public class Contact {
 
     @Id
@@ -23,10 +26,12 @@ public class Contact {
     )
     @Column(name="CONTACT_ID")
     @Setter(AccessLevel.NONE)
+    @ApiModelProperty("Id of contact in database")
     private String id;
 
     @OneToMany(mappedBy = "contact", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
+    @ApiModelProperty("List of applications which contact created")
     private List<Application> applications = new ArrayList<>();
 
     public void addAllApplications(Collection<Application> applications) {
