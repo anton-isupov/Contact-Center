@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
+
 @RestController
 @RequestMapping("/api/rest/v1/contact/center")
 @Api("Application Resources")
@@ -23,16 +25,16 @@ public class ApplicationController {
         this.contactCenterService = contactCenterService;
     }
 
-    @GetMapping("/getLastApplication/{id}")
+    @GetMapping("/getLastApplication")
     @ApiOperation(value = "Get Last Application By Contact Id", response = ApplicationResponse.class)
-    public ResponseEntity<Response> getLastApplicationByContactId(@PathVariable("id") String id) {
+    public ResponseEntity<Response> getLastApplicationByContactId(@PathParam("id") String id) {
         return this.contactCenterService.getLastApplicationByContactId(id);
     }
 
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<Response> handleError() {
         return new ResponseEntity<>(
-                new Response(ResponseStatus.FAILURE, "There was an unexpected error. Try later"),
+                new Response(ResponseStatus.FAILURE, "There was an unexpected error. Try again later"),
                 HttpStatus.OK
         );
     }
