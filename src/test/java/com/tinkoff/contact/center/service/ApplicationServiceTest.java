@@ -31,7 +31,7 @@ class ApplicationServiceTest {
     private ApplicationRepository applicationRepository;
 
     @Test
-    void findTopByContactIdOrderByCreatedDesc() {
+    void findTopByContactIdOrderByCreatedDesc() throws NoSuchApplicationException {
         Application a = new Application();
         a.setProductName("app");
 
@@ -39,14 +39,22 @@ class ApplicationServiceTest {
                 .when(applicationRepository)
                 .findTopByContactIdOrderByCreatedDesc("uuid");
 
-        Assertions.assertDoesNotThrow(() -> {
-            this.applicationService.findTopByContactIdOrderByCreatedDesc("uuid");
-        });
-
-        Assertions.assertThrows(NoSuchApplicationException.class,
-                () -> this.applicationService.findTopByContactIdOrderByCreatedDesc(null));
-
-        Assertions.assertThrows(NoSuchApplicationException.class,
-                () -> this.applicationService.findTopByContactIdOrderByCreatedDesc("0000"));
+        Application uuid = this.applicationService.findTopByContactIdOrderByCreatedDesc("uuid");
+        assertEquals(uuid.getProductName(), "app");
     }
+
+    @Test
+    void findTopByContactIdOrderByCreatedDescNullCheck() {
+        NoSuchApplicationException noSuchApplicationException = assertThrows(NoSuchApplicationException.class,
+                () -> this.applicationService.findTopByContactIdOrderByCreatedDesc(null));
+        assertEquals(noSuchApplicationException.getMessage(), "Contact id can not be null");
+    }
+
+    @Test
+    void findTopByContactIdOrderByCreatedDescIdNotFoundCheck() {
+        NoSuchApplicationException noSuchApplicationException = assertThrows(NoSuchApplicationException.class,
+                () -> this.applicationService.findTopByContactIdOrderByCreatedDesc("0000"));
+        assertEquals(noSuchApplicationException.getMessage(), "Could not find any application");
+    }
+
 }

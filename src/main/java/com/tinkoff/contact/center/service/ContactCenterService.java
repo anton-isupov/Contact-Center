@@ -30,7 +30,7 @@ public class ContactCenterService {
         } catch (NoSuchApplicationException e) {
             return new ResponseEntity<>(
                     new Response(ResponseStatus.FAILURE, e.getMessage()),
-                    HttpStatus.OK
+                    HttpStatus.NOT_FOUND
             );
         }
     }
