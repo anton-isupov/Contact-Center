@@ -27,7 +27,7 @@ public class ApplicationController {
 
     @GetMapping("/getLastApplication")
     @ApiOperation(value = "Get Last Application By Contact Id", response = ApplicationResponse.class)
-    public ResponseEntity<Response> getLastApplicationByContactId(@PathParam("id") String id) {
+    public ResponseEntity<Response> getLastApplicationByContactId(@RequestParam("id") String id) {
         return this.contactCenterService.getLastApplicationByContactId(id);
     }
 
