@@ -1,5 +1,6 @@
-package com.tinkoff.contact.center.controller;
+package com.tinkoff.contact.center.unit.controller;
 
+import com.tinkoff.contact.center.controller.ApplicationController;
 import com.tinkoff.contact.center.model.Application;
 import com.tinkoff.contact.center.response.ApplicationResponse;
 import com.tinkoff.contact.center.response.Response;
